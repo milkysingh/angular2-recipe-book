@@ -15,6 +15,11 @@ recipe:Recipe[] ;
 
 
   ngOnInit() {
+    this.recipeService.changedRecipe.subscribe(
+      (recipe:Recipe[])=>{
+this.recipe=recipe;
+      }
+    )
     this.recipe=this.recipeService.getRecipes();
   
  }
