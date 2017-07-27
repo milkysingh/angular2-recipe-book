@@ -1,8 +1,23 @@
 import {
   Component,
   EventEmitter,
-  Output
+  Output,
+  OnInit
 } from "@angular/core"
+import {
+  RecipeService
+} from "../services/recipe.service";
+import {
+  DatabaseService
+} from "../services/database.service";
+import {
+  Recipe
+} from "../recipes/recipe.model";
+import {
+  Response
+} from "@angular/http";
+import "rxjs/Rx";
+
 @Component({
   selector: "app-header",
   templateUrl: "./header.component.html",
@@ -10,8 +25,34 @@ import {
 })
 
 export class HeaderComponent {
-  
+  constructor(private recipeService: RecipeService, private database: DatabaseService) {}
+
+  recipe: Recipe[];
+
+  onSave() {
+    this.recipe = this.recipeService.getRecipes()
+    this.database.onSaveData(this.recipe).subscribe();
+  }
+  onFetch() {
+
+    this.database.onFetchData().map(
+        (response: Response) => {
+          const recipe: Recipe[] = response.json();
+          for (var item of recipe) {
+            if (!item['ingredients']) {
+              
+              item['ingredients'] = [];
+            }
+          }
+          return recipe;
+        }
+      )
+      .subscribe(
+        (recipe: Recipe[]) => {
+          // this.recipe=response
+          this.recipeService.fetchedRecipes(recipe);
+        }
+      )
+  }
+
 }
-
-
-

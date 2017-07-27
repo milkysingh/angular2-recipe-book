@@ -35,9 +35,13 @@ export class ShoppingService {
     this.changedIngredients.next(this.ingredients.slice());
 
   }
-  deleteItem(index:number){
-    this.ingredients.splice(index,1);
-this.changedIngredients.next(this.ingredients.slice());
+  deleteItem(index: number) {
+    this.ingredients.splice(index, 1);
+    this.changedIngredients.next(this.ingredients.slice());
+  }
+  updateCart(ingredients: Ingredients[]) {
+    this.ingredients = ingredients;
+    this.changedIngredients.next(this.ingredients.slice());
   }
 
 

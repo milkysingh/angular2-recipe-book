@@ -12,6 +12,12 @@ import {
 import {
   Subscription
 } from "rxjs/Subscription";
+import {
+  DatabaseService
+} from "../services/database.service";
+import {
+  Response
+} from "@angular/http";
 @Component({
   selector: 'app-shopping-list',
   templateUrl: './shopping-list.component.html',
@@ -19,7 +25,7 @@ import {
 })
 export class ShoppingListComponent implements OnInit, OnDestroy {
   ingredients: Ingredients[] = [];
-  constructor(private shoppingService: ShoppingService) {}
+  constructor(private shoppingService: ShoppingService, private databaseService: DatabaseService) {}
   private mySubscription: Subscription;
   ngOnInit() {
     this.ingredients = this.shoppingService.returnIngredients();
@@ -35,6 +41,20 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.mySubscription.unsubscribe();
+  }
+  saveCart() {
+    this.databaseService.onSaveShoppingCart(this.ingredients).subscribe((
+      (response: Response) => {
+        console.log(response.json());
+      }
+    ));
+  }
+  fetchCart() {
+    this.databaseService.onFetchShopppingCart().subscribe(
+      (response: Response) => {
+        this.shoppingService.updateCart(response.json());
+      }
+    )
   }
 
 }

@@ -49,4 +49,9 @@ export class RecipeService {
 
   }
 
+  fetchedRecipes(recipes:Recipe[]){
+    this.recipe=recipes;
+      this.changedRecipe.next(this.recipe.slice());
+  }
+
 }
