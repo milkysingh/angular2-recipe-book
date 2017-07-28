@@ -16,20 +16,21 @@ import {
 import {
   Ingredients
 } from "../shared/ingredients.model"
+import { AuthService } from "./auth.service";
 @Injectable()
 export class DatabaseService {
-  constructor(private http: Http, private shoppingService: ShoppingService) {}
+  constructor(private http: Http, private shoppingService: ShoppingService,private authService:AuthService) {}
   onSaveData(recipes: Recipe[]) {
-    return this.http.put("https://my-recipe-book-97ee7.firebaseio.com/recipebook.json", recipes).map(
+    const token=this.authService.getToken();
+    return this.http.put("https://my-recipe-book-97ee7.firebaseio.com/recipebook.json?auth="+token, recipes).map(
       (response) => {
         console.log(response);
       }
     );
   }
   onFetchData() {
-
-
-    return this.http.get("https://my-recipe-book-97ee7.firebaseio.com/recipebook.json");
+    const token=this.authService.getToken();
+    return this.http.get("https://my-recipe-book-97ee7.firebaseio.com/recipebook.json?auth="+token);
   }
 
   onSaveShoppingCart(ingredients: Ingredients[]) {

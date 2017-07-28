@@ -19,6 +19,10 @@ import { DatabaseService } from "./services/database.service";
 import { HttpModule } from "@angular/http";
 import { RecipeService } from "./services/recipe.service";
 import { ShoppingService } from "./services/shopping.service";
+import { SignupComponent } from './auth/signup/signup.component';
+import { SigninComponent } from './auth/signin/signin.component';
+import {AuthService  } from "./services/auth.service";
+import {  AuthGuard} from "./auth/auth-guard-.service";
 
 @NgModule({
   declarations: [
@@ -34,6 +38,8 @@ import { ShoppingService } from "./services/shopping.service";
     RecipeSelectComponent,
     AppDropdownClickDirective,
     RecipeEditComponent,
+    SignupComponent,
+    SigninComponent,
    
   ],
   imports: [
@@ -43,7 +49,7 @@ import { ShoppingService } from "./services/shopping.service";
     ReactiveFormsModule,
     HttpModule
   ],
-  providers: [DatabaseService,ShoppingService,RecipeService],
+  providers: [DatabaseService,ShoppingService,RecipeService,AuthService,AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

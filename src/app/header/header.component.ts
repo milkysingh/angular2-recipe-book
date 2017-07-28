@@ -17,7 +17,7 @@ import {
   Response
 } from "@angular/http";
 import "rxjs/Rx";
-
+import { AuthService } from "../services/auth.service";
 @Component({
   selector: "app-header",
   templateUrl: "./header.component.html",
@@ -25,7 +25,7 @@ import "rxjs/Rx";
 })
 
 export class HeaderComponent {
-  constructor(private recipeService: RecipeService, private database: DatabaseService) {}
+  constructor(private recipeService: RecipeService, private database: DatabaseService,private authService:AuthService) {}
 
   recipe: Recipe[];
 
@@ -54,5 +54,8 @@ export class HeaderComponent {
         }
       )
   }
+    onLogout(){
+      this.authService.onLogout();
+    }
 
 }
