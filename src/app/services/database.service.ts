@@ -34,12 +34,13 @@ export class DatabaseService {
   }
 
   onSaveShoppingCart(ingredients: Ingredients[]) {
-    return this.http.put("https://my-recipe-book-97ee7.firebaseio.com/shoppingCart/cart.json", ingredients);
+    const token=this.authService.getToken();
+    return this.http.put("https://my-recipe-book-97ee7.firebaseio.com/shoppingCart/cart.json?auth="+token, ingredients);
   }
 
   onFetchShopppingCart() {
-
-    return this.http.get("https://my-recipe-book-97ee7.firebaseio.com/shoppingCart/cart.json");
+const token=this.authService.getToken();
+    return this.http.get("https://my-recipe-book-97ee7.firebaseio.com/shoppingCart/cart.json?auth="+token);
   }
 
 

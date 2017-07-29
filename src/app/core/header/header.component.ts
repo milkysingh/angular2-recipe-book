@@ -6,18 +6,18 @@ import {
 } from "@angular/core"
 import {
   RecipeService
-} from "../services/recipe.service";
+} from "../../services/recipe.service";
 import {
   DatabaseService
-} from "../services/database.service";
+} from "../../services/database.service";
 import {
   Recipe
-} from "../recipes/recipe.model";
+} from "../../recipes/recipe.model";
 import {
   Response
 } from "@angular/http";
 import "rxjs/Rx";
-import { AuthService } from "../services/auth.service";
+import { AuthService } from "../../services/auth.service";
 @Component({
   selector: "app-header",
   templateUrl: "./header.component.html",
@@ -25,7 +25,7 @@ import { AuthService } from "../services/auth.service";
 })
 
 export class HeaderComponent {
-  constructor(private recipeService: RecipeService, private database: DatabaseService,private authService:AuthService) {}
+  constructor(private recipeService: RecipeService, private database: DatabaseService,public authService:AuthService) {}
 
   recipe: Recipe[];
 
